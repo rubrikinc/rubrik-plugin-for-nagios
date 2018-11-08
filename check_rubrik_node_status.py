@@ -1,5 +1,25 @@
 #!/usr/bin/env python
 
+"""
+check_rubrik_node_status.py
+
+This script gets the status for all nodes in the Rubrik cluster,
+and returns a critical alert if any node has a status other than
+OK.
+
+Requires the following non-core Python modules:
+- nagiosplugin
+- rubrik_cdm
+These are both avaialble from PyPI via pip
+
+Installation:
+
+The script should be copied to the Nagios plugins directory on the machine hosting the Nagios server or the NRPE
+for example the /usr/lib/nagios/plugins folder.
+Change the execution rights of the program to allow the execution to 'all' (usually chmod 0755).
+
+Created by Tim Hynes at Rubrik
+"""
 import argparse
 import logging
 import nagiosplugin
@@ -45,7 +65,7 @@ class Rubriknodestatus(nagiosplugin.Resource):
         else:
             _log.debug(str(rk_bad_nodes)+' returned an unhealthy status')
 
-        metric = nagiosplugin.Metric('Number of unhealthy nodes', rk_bad_nodes, min=0, context='rk_bad_nodes')
+        metric = nagiosplugin.Metric('Unhealthy nodes', rk_bad_nodes, min=0, context='rk_bad_nodes')
         return metric
 
 def parse_args():
@@ -53,8 +73,8 @@ def parse_args():
     argp.add_argument('-s', '--rubrik_ip', help="Rubrik hostname or ip address")
     argp.add_argument('-u', '--rubrik_user', help="Rubrik username")
     argp.add_argument('-p', '--rubrik_pass', help="Rubrik password")
-    argp.add_argument('-w', '--warning', metavar='RANGE', default='~:0', help='return warning if occupancy is outside RANGE. Value is expressed in number of nodes')
-    argp.add_argument('-c', '--critical', metavar='RANGE', default='~:0', help='return critical if occupancy is outside RANGE. Value is expressed in number of nodes')
+    argp.add_argument('-w', '--warning', metavar='RANGE', default='~:0', help='return warning if occupancy is outside RANGE. Value is expressed in number of unhealthy nodes')
+    argp.add_argument('-c', '--critical', metavar='RANGE', default='~:0', help='return critical if occupancy is outside RANGE. Value is expressed in number of unhealthy nodes')
     argp.add_argument('-v', '--verbose', action='count', default=0,
                       help='increase output verbosity (use up to 3 times)')
     argp.add_argument('-t', '--timeout', default=30,

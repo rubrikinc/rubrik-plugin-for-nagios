@@ -1,5 +1,25 @@
 #!/usr/bin/env python
 
+"""
+check_rubrik_cluster_storage.py
+
+This script gets the current used storage in the Rubrik cluster,
+and returns a warning if the usage is over 50%, and a critical
+alert if the usage is above 70%.
+
+Requires the following non-core Python modules:
+- nagiosplugin
+- rubrik_cdm
+These are both avaialble from PyPI via pip
+
+Installation:
+
+The script should be copied to the Nagios plugins directory on the machine hosting the Nagios server or the NRPE
+for example the /usr/lib/nagios/plugins folder.
+Change the execution rights of the program to allow the execution to 'all' (usually chmod 0755).
+
+Created by Tim Hynes at Rubrik
+"""
 import argparse
 import logging
 import nagiosplugin
@@ -33,7 +53,7 @@ class Rubrikclusterstorage(nagiosplugin.Resource):
         rk_cluster_storage = self.get_cluster_storage()
         rk_total_storage = rk_cluster_storage['total']
         rk_available_storage = rk_cluster_storage['available']
-        rk_percent_used = int(float(rk_available_storage) / float(rk_total_storage) * 100)
+        rk_percent_used = 100 - int(float(rk_available_storage) / float(rk_total_storage) * 100)
         _log.debug('Cluster storage is '+str(rk_percent_used)+'% used')
         metric = nagiosplugin.Metric('Cluster used storage', rk_percent_used, '%', min=0, max=100, context='rk_cluster_used')
         return metric

@@ -1,5 +1,25 @@
 #!/usr/bin/env python
 
+"""
+check_rubrik_runway.py
+
+This script gets the current runway remaining in the Rubrik cluster,
+and returns a warning if there is less than 180 days, and a critical
+alert if there is less than 60 days remaining.
+
+Requires the following non-core Python modules:
+- nagiosplugin
+- rubrik_cdm
+These are both avaialble from PyPI via pip
+
+Installation:
+
+The script should be copied to the Nagios plugins directory on the machine hosting the Nagios server or the NRPE
+for example the /usr/lib/nagios/plugins folder.
+Change the execution rights of the program to allow the execution to 'all' (usually chmod 0755).
+
+Created by Tim Hynes at Rubrik
+"""
 import argparse
 import logging
 import nagiosplugin
