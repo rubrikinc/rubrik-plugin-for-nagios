@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains monitoring scripts for Nagios and Icinga. These are written in Python, the requiremenets for the Nagios/Icinga server are detailed below.
+This repository contains monitoring scripts for Nagios and Icinga. These are written in Python, the requirements for the Nagios/Icinga server are detailed below.
 
 ## Pre-Requisites
 
