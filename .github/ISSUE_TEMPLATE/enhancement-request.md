@@ -7,14 +7,6 @@ assignees: ''
 
 ---
 
----
-name: Enhancement Request
-about: Suggest an enhancement to this plugin.
-title: ''
-labels: kind-enhancement
-assignees: ''
-
----
 
 <!-- Please only use this template for submitting enhancement requests -->
 
