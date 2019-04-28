@@ -166,3 +166,14 @@ apply Service "rubrik_runway" {
 ```
 
 The script should be copied to the Icinga plugins directory on the machine hosting the Nagios server or the NRPE for example the /usr/lib/nagios/plugins folder. Change the execution rights of the program to allow the execution to 'all' (usually chmod 0755).
+
+## Credentials
+
+The scripts shosld be run as a user with admin credentials on the cluster. From Rubrik CDM 4.2, it is possible to create a read only admin user, which is better suited for this kind of monitoring. To do this, run the following commands:
+
+```bash
+USER_ID=$(curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{"username":"readonlyadmin","password":"NotAPa$5123!!!","emailAddress":"readonlyadmin@rubrik.demo"}' 'https://rubrik.demo.com/api/internal/user' -k -u 'admin:NotAPa$5123!!!' -s | jq -r '.id')
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d $(echo '{"principals":["'$USER_ID'"],"privileges":{"basic":["Global:::All"]}}') 'https://rubrik.demo.com/api/internal/authorization/role/read_only_admin' -k -u 'admin:NotAPa$5123!!!' -s | jq
+```
+
+This will create a read only admin user with the specified details. This has been tested with the integration and works fine.
