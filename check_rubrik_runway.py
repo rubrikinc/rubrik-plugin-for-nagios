@@ -73,7 +73,7 @@ def parse_args():
 def main():
     args = parse_args()
     check = nagiosplugin.Check( Rubrikrunway(args.rubrik_ip, args.rubrik_user, args.rubrik_pass) )
-    check.add(nagiosplugin.ScalarContext('rk_runway', args.warning, args.critical))
+    check.add(nagiosplugin.ScalarContext('rk_runway', (args.warning+':'), (args.critical+':')))
     check.main(args.verbose, args.timeout)
 
 if __name__ == '__main__':
