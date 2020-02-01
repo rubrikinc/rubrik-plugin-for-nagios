@@ -15,7 +15,7 @@ The scripts require the following Python modules to operate:
 * rubrik_cdm
 * nagiosplugin
 
-It has been tested with Python 2.7.
+It has been tested with Python 2.7 and Python 3.7.
 
 # :muscle: How You Can Help
 
