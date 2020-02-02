@@ -64,10 +64,10 @@ class RubrikNodeStatus(nagiosplugin.Resource):
                 bad_nodes += 1
         
         if not bad_nodes:
-            _log.debug(f'All {nodes["total"]} nodes are in an OK status')
+            _log.debug('All {0} nodes are in an OK status'.format(nodes['total']))
         else:
-            _log.debug(f'{bad_nodes} nodes returned an unhealthy status')
-
+            _log.debug('{0} nodes returned an unhealthy status'.format(bad_nodes))
+        
         metric = nagiosplugin.Metric('Unhealthy nodes', bad_nodes, min=0, context='rk_bad_nodes')
 
         return metric

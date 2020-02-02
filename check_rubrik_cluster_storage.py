@@ -62,7 +62,7 @@ class RubrikClusterStorage(nagiosplugin.Resource):
         available_storage = cluster_storage['available']
         
         percent_used = 100 - int(float(available_storage) / float(total_storage) * 100)
-        _log.debug(f'Cluster storage is {percent_used}% used')
+        _log.debug('Cluster storage is {0}% used'.format(percent_used))
 
         metric = nagiosplugin.Metric('Cluster used storage', percent_used, '%', min=0, max=100, context='rk_cluster_used')
 
