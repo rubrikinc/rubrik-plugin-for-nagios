@@ -8,8 +8,8 @@ This repository contains monitoring scripts for Nagios and Icinga. These are wri
 
 The scripts require the following Python modules to operate:
 
-* rubrik_cdm
-* nagiosplugin
+* [rubrik_cdm](https://github.com/rubrikinc/rubrik-sdk-for-python)
+* [nagiosplugin](https://pypi.org/project/nagiosplugin/)
 
 It has been tested with Python 2.7 and Python 3.0.
 
